@@ -1,37 +1,25 @@
 package com.harunuyar.kaydir;
 
-import android.Manifest;
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.net.Uri;
-import android.provider.MediaStore;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.SurfaceView;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
-
 import com.harunuyar.kaydir.States.GameState;
 import com.harunuyar.kaydir.States.GameStateManager;
-
-import java.io.File;
-import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by Harun on 5.02.2017.
  */
 
 public class GameSurfaceView extends SurfaceView implements Runnable {
+
+    private boolean debug = false;
 
     public GameSurfaceView(Context context) {
         super(context);
@@ -55,6 +43,8 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
     private static int satır, sütun;
     private static Bitmap bitmap;
 
+    private int fps;
+
     private void init(Context context) {
         running = false;
         thread = null;
@@ -73,6 +63,30 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
                     Constants.setWidth(getWidth());
                     gsm.pushState(new GameState(gsm, this, bitmap, satır, sütun));
                     stateSet = true;
+
+                    if(debug) {
+                        final TextView textViewFps = (TextView) gsm.getActivity().findViewById(R.id.textViewFps);
+                        gsm.getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                textViewFps.setVisibility(VISIBLE);
+                                fps = 0;
+                            }
+                        });
+                        Timer t = new Timer();
+                        t.schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                gsm.getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        textViewFps.setText(fps + " fps");
+                                        fps = 0;
+                                    }
+                                });
+                            }
+                        }, 0, 1000);
+                    }
                 }
                 Canvas canvas = getHolder().lockCanvas();
                 draw(canvas);
@@ -82,6 +96,9 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
     }
 
     public void draw(Canvas canvas){
+        super.draw(canvas);
+        if (debug)
+            fps++;
         canvas.drawColor(ContextCompat.getColor(gsm.getContext(), R.color.colorSecondary));
         gsm.draw(canvas);
     }
@@ -97,13 +114,10 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
     public void onPause(){
         running = false;
         gsm.onPause();
-        while(true) {
-            try {
-                thread.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            break;
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 

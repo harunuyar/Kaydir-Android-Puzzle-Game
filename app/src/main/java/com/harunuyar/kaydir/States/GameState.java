@@ -466,10 +466,14 @@ public class GameState extends State {
     @Override
     public void draw(Canvas canvas) {
         try {
-            çerçeveSağ.draw(canvas);
-            çerçeveSol.draw(canvas);
-            çerçeveÜst.draw(canvas);
-            çerçeveAlt.draw(canvas);
+            if (çerçeveSol.getWidth() != 0) {
+                çerçeveSağ.draw(canvas);
+                çerçeveSol.draw(canvas);
+            }
+            else {
+                çerçeveÜst.draw(canvas);
+                çerçeveAlt.draw(canvas);
+            }
             if (emptySelected) {
                 emptyBlock.draw(canvas);
             }
@@ -509,6 +513,7 @@ public class GameState extends State {
                 timer.cancel();
                 timer = null;
             }
+
             çerçeveSol.dispose();
             çerçeveAlt.dispose();
             çerçeveÜst.dispose();

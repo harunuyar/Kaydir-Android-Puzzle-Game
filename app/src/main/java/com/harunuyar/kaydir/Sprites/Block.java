@@ -3,7 +3,6 @@ package com.harunuyar.kaydir.Sprites;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
-
 import com.harunuyar.kaydir.Constants;
 import com.harunuyar.kaydir.Tools.Vector;
 

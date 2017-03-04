@@ -3,7 +3,6 @@ package com.harunuyar.kaydir.States;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
-import com.harunuyar.kaydir.States.State;
 import java.util.Stack;
 
 /**

@@ -2,7 +2,6 @@ package com.harunuyar.kaydir.Csv;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
