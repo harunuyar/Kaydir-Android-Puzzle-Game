@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.harunuyar.kaydir.GameActivity"
+    android:background="@color/colorPrimary">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonLayout"
+        android:background="@color/colorPrimaryDark"
+        android:minHeight="?attr/actionBarSize">
+
+        <ImageButton
+            app:srcCompat="@drawable/karistir"
+            android:id="@+id/buttonKarıştır"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:scaleType="centerInside"
+            android:background="#00000000"
+            android:padding="5dp"
+            android:layout_height="55dp" />
+
+        <ImageButton
+            app:srcCompat="@drawable/sifirla"
+            android:id="@+id/buttonSıfırla"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:scaleType="centerInside"
+            android:background="#00000000"
+            android:padding="5dp"
+            android:layout_height="55dp" />
+
+    </LinearLayout>
+
+    <com.harunuyar.kaydir.GameSurfaceView
+        android:id="@+id/menusv"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_above="@+id/bitti"
+        android:layout_below="@+id/progressBar" />
+
+    <TextView
+        android:text="Çıkarmak için bir parça seçin.\nEn iyi süre: --:--"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bitti"
+        android:textSize="18sp"
+        android:textAlignment="center"
+        android:textColor="@color/colorSecondary"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:minLines="2"
+        android:maxLines="2"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:layout_above="@+id/progressBar"
+        android:layout_alignParentBottom="true" />
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        android:visibility="visible"
+        tools:visibility="visible"
+        android:indeterminate="false"
+        android:background="@color/colorPrimaryLight"
+        android:layout_below="@+id/buttonLayout" />
+
+</RelativeLayout>
