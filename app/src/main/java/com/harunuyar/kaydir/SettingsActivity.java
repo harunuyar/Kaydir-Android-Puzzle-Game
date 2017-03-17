@@ -66,10 +66,6 @@ public class SettingsActivity extends AppCompatActivity {
         imageButtonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (usedBitmap != defaultBitmap){
-                    usedBitmap.recycle();
-                    usedBitmap = defaultBitmap;
-                }
                 finish();
             }
         });
@@ -223,10 +219,11 @@ public class SettingsActivity extends AppCompatActivity {
 
             Bitmap bitmap = BitmapFactory.decodeFile(picturePath);
             if (bitmap != null) {
-                imageViewSelected.setImageBitmap(bitmap);
-                if (usedBitmap != defaultBitmap)
+                if (usedBitmap != defaultBitmap) {
                     usedBitmap.recycle();
+                }
                 usedBitmap = bitmap;
+                imageViewSelected.setImageBitmap(usedBitmap);
             }
         }
         else if (requestCode == Constants.CAMERA_REQUEST && resultCode == RESULT_OK){
@@ -234,10 +231,11 @@ public class SettingsActivity extends AppCompatActivity {
             options.inSampleSize = 4;
             Bitmap bitmap = BitmapFactory.decodeFile(fileName, options);
             if (bitmap != null) {
-                imageViewSelected.setImageBitmap(bitmap);
-                if (usedBitmap != defaultBitmap)
+                if (usedBitmap != defaultBitmap) {
                     usedBitmap.recycle();
+                }
                 usedBitmap = bitmap;
+                imageViewSelected.setImageBitmap(usedBitmap);
             }
         }
     }

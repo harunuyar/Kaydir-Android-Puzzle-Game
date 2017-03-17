@@ -466,11 +466,11 @@ public class GameState extends State {
     @Override
     public void draw(Canvas canvas) {
         try {
-            if (çerçeveSol.getWidth() != 0) {
+            if (çerçeveSol.getWidth() > 2) {
                 çerçeveSağ.draw(canvas);
                 çerçeveSol.draw(canvas);
             }
-            else {
+            else if (çerçeveÜst.getHeight() > 2){
                 çerçeveÜst.draw(canvas);
                 çerçeveAlt.draw(canvas);
             }
